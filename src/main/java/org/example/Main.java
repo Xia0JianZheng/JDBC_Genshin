@@ -20,44 +20,44 @@ public class Main {
 		while (option > 0 && option < 11) {
 			switch (option) {
 			case 1:
-				characterController.showAllCharacters();
+				characterController.addCharacter();
 				break;
 
 			case 2:
-				// dbaccessor.mostraRevistes();
+
 				break;
 
 			case 3:
-				// dbaccessor.mostraRevistesArticlesAutors();
+				characterController.showAllCharacters();
 				break;
 
 			case 4:
-				// dbaccessor.altaAutor();
+				characterController.showSpecificCharacter();
 				break;
 
 			case 5:
-				// dbaccessor.altaRevista();
+
 				break;
 
 			case 6:
-				// dbaccessor.altaArticle();
+
 				break;
 
 			case 7:
-				// dbaccessor.actualitzarTitolRevistes(conn);
+
 				break;
 
 			case 8:
-				// dbaccessor.afegeixArticleARevista(conn);
+
 				break;
 
 			case 9:
-				// dbaccessor.desassignaArticleARevista(conn);
+
 				break;
 
 			case 10:
-				connectionFactory.disconnect();
-				return;
+
+				break;
 
 			default:
 				System.out.println("Introdueixi una de les opcions anteriors");
