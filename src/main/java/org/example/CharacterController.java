@@ -1,7 +1,12 @@
 package org.example;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CharacterController {
@@ -54,6 +59,45 @@ public class CharacterController {
 		} catch (SQLException e){
 			e.printStackTrace();
 			System.out.println("Character Not Found ");
+		}
+	}
+
+	public void addCharacterUsingCSV(){
+		List<String[]> characterDatas = new ArrayList<>();
+
+		try{
+			BufferedReader br = new BufferedReader(new FileReader("src/main/resources/csv/Characters.csv"));
+			String line;
+
+			while ((line = br.readLine()) != null){
+				String[] data = line.split("\",\"");
+				characterDatas.add(data);
+			}
+
+			for(String[] data : characterDatas){
+				String character_name = data[0];
+				String character_rarity = data[1];
+				String character_image = data[2];
+				String character_description = data[3];
+				String element_name = data[4];
+				String region_name = data[5];
+				String weapon_type = data[6];
+
+				String sql = "INSERT INTO character(character_name,character_rarity,character_image,character_description,element_name,region_name,weapon_type)VALUES(?,?,?,?,?,?,?)";
+				PreparedStatement pst = connection.prepareStatement(sql);
+				pst.setString(1,character_name);
+				pst.setString(2,character_rarity);
+				pst.setString(3,character_image);
+				pst.setString(4,character_description);
+				pst.setString(5,element_name);
+				pst.setString(6,region_name);
+				pst.setString(7,weapon_type);
+
+				pst.executeUpdate();
+				pst.close();
+			}
+		} catch (IOException | SQLException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -118,6 +162,27 @@ public class CharacterController {
 			e.printStackTrace();
 			System.out.println("Character Not Found ");
 		}
+	}
+
+	public void removeOneCharacter() throws SQLException {
+
+		Scanner sc = new Scanner(System.in);
+
+		String sql = "DELETE FROM character WHERE character_name = ?";
+		PreparedStatement pst = connection.prepareStatement(sql);
+
+		try {
+			System.out.println("Type the name of the character you want remove : ");
+			String character_name = sc.nextLine();
+			pst.setString(1, character_name);
+			pst.executeUpdate();
+			pst.close();
+			System.out.println("El character " + character_name + " Ha sido borrado de la tabla");
+		}catch (SQLException e){
+			e.printStackTrace();
+			System.out.println("Character Not Found ");
+		}
+
 	}
 
 }

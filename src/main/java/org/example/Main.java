@@ -22,23 +22,18 @@ public class Main {
 			case 1:
 				characterController.addCharacter();
 				break;
-
 			case 2:
-
+				characterController.addCharacterUsingCSV();
 				break;
-
 			case 3:
 				characterController.showAllCharacters();
 				break;
-
 			case 4:
 				characterController.showSpecificCharacter();
 				break;
-
 			case 5:
 
 				break;
-
 			case 6:
 
 				break;
@@ -48,7 +43,7 @@ public class Main {
 				break;
 
 			case 8:
-
+				characterController.removeOneCharacter();
 				break;
 
 			case 9:
