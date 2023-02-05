@@ -11,7 +11,11 @@ import java.util.Scanner;
 
 public class CharacterController {
 
-	private Connection connection;
+	private final Connection connection;
+
+	Scanner sc = new Scanner(System.in);
+
+	ResultSet rs;
 	
 	public CharacterController(Connection connection) {
 		this.connection = connection;
@@ -20,11 +24,8 @@ public class CharacterController {
 
 	public void addCharacter() throws SQLException {
 
-		Scanner sc = new Scanner(System.in);
-
 		String sql = "INSERT INTO character(character_name,character_rarity,character_image,character_description,element_name,region_name,weapon_type,weapon_name,artifact_set) VALUES(?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pst = connection.prepareStatement(sql);
-
 		try{
 			System.out.println("Type the name of the character : ");
 			String character_name = sc.nextLine();
@@ -104,7 +105,6 @@ public class CharacterController {
 	public void showAllCharacters() throws SQLException, IOException {
 
 		Statement st = connection.createStatement();
-		ResultSet rs;
 
 		rs = st.executeQuery("SELECT * FROM character");
 		while (rs.next()) {
@@ -127,9 +127,6 @@ public class CharacterController {
 	}
 
 	public void showSpecificCharacter() throws SQLException {
-
-		ResultSet rs;
-		Scanner sc = new Scanner(System.in);
 
 		String sql = "SELECT * FROM character WHERE character_name = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -164,9 +161,37 @@ public class CharacterController {
 		}
 	}
 
-	public void removeOneCharacter() throws SQLException {
+	public void showCharacterWithRegion() throws SQLException{
+		String sql = "SELECT * FROM character WHERE region_name = ?";
+		PreparedStatement pst = connection.prepareStatement(sql);
 
-		Scanner sc = new Scanner(System.in);
+		try{
+			System.out.println("Type the region name : [-][ ][ ][ ][ ][ ][ ]");
+			String regioName = sc.nextLine();
+			pst.setString(1,regioName);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				System.out.println("---------------------------------------" +
+						"\nId: " + rs.getString("id_character") +
+						"\nCharacterName : " + rs.getString("character_name") +
+						"\nCharacterRarity : " + rs.getString("character_rarity") +
+						"\nCharacterImage : " + rs.getString("character_image") +
+						"\nCharacterDescription : " + rs.getString("character_description") +
+						"\nElementName : " + rs.getString("element_name") +
+						"\nRegionName : " + rs.getString("region_name") +
+						"\nWeaponType : " + rs.getString("weapon_type") +
+						"\n---------------------------------------");
+
+			}
+			}catch(SQLException e){
+			e.printStackTrace();
+			System.out.println("Character Not Found ");
+		}
+
+	}
+
+	public void removeOneCharacter() throws SQLException {
 
 		String sql = "DELETE FROM character WHERE character_name = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);

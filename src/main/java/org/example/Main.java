@@ -32,7 +32,7 @@ public class Main {
 				characterController.showSpecificCharacter();
 				break;
 			case 5:
-
+				characterController.showCharacterWithRegion();
 				break;
 			case 6:
 
