@@ -24,7 +24,7 @@ public class CharacterController {
 
 	public void addCharacter() throws SQLException {
 
-		String sql = "INSERT INTO character(character_name,character_rarity,character_image,character_description,element_name,region_name,weapon_type,weapon_name,artifact_set) VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO character(character_name,character_rarity,character_image,character_description,element_name,region_name,weapon_type) VALUES(?,?,?,?,?,?,?)";
 		PreparedStatement pst = connection.prepareStatement(sql);
 		try{
 			System.out.println("Type the name of the character : ");
@@ -41,10 +41,6 @@ public class CharacterController {
 			String region_name = sc.nextLine();
 			System.out.println("Type the weapon type of the character : ");
 			String weapon_type = sc.nextLine();
-			System.out.println("Type the weapon of the character : ");
-			String weapon_name = sc.nextLine();
-			System.out.println("Type the artifacte of the character : ");
-			String artifact_set = sc.nextLine();
 			pst.setString(1, character_name);
 			pst.setString(2,character_rarity);
 			pst.setString(3,character_image);
@@ -52,8 +48,6 @@ public class CharacterController {
 			pst.setString(5,element_name);
 			pst.setString(6,region_name);
 			pst.setString(7,weapon_type);
-			pst.setString(8,weapon_name);
-			pst.setString( 9,artifact_set);
 			pst.executeUpdate();
 
 			pst.close();
@@ -117,11 +111,8 @@ public class CharacterController {
 							"\nElementName : " + rs.getString("element_name") +
 							"\nRegionName : " + rs.getString("region_name") +
 							"\nWeaponType : " + rs.getString("weapon_type") +
-							"\nWeaponName : " + rs.getString("weapon_name") +
-							"\nArtifactSet : " + rs.getString("artifact_set") +
 							"\n---------------------------------------");
 		}
-
 		rs.close();
 		st.close();
 	}
@@ -138,29 +129,29 @@ public class CharacterController {
 			rs = pst.executeQuery();
 			// rs = st.executeQuery("SELECT * FROM character WHERE character_name = characterName=? ");
 
-			while (rs.next()) {
-				System.out.println("---------------------------------------" +
-						"\nId: " + rs.getString("id_character") +
-						"\nCharacterName : " + rs.getString("character_name") +
-						"\nCharacterRarity : " + rs.getString("character_rarity") +
-						"\nCharacterImage : " + rs.getString("character_image") +
-						"\nCharacterDescription : " + rs.getString("character_description") +
-						"\nElementName : " + rs.getString("element_name") +
-						"\nRegionName : " + rs.getString("region_name") +
-						"\nWeaponType : " + rs.getString("weapon_type") +
-						"\nWeaponName : " + rs.getString("weapon_name") +
-						"\nArtifactSet : " + rs.getString("artifact_set") +
-						"\n---------------------------------------");
-
+			if (!rs.next()) {
+				System.out.println("Character Not Found");
+			} else {
+				do {
+					System.out.println("---------------------------------------" +
+							"\nId: " + rs.getString("id_character") +
+							"\nCharacterName : " + rs.getString("character_name") +
+							"\nCharacterRarity : " + rs.getString("character_rarity") +
+							"\nCharacterImage : " + rs.getString("character_image") +
+							"\nCharacterDescription : " + rs.getString("character_description") +
+							"\nElementName : " + rs.getString("element_name") +
+							"\nRegionName : " + rs.getString("region_name") +
+							"\nWeaponType : " + rs.getString("weapon_type") +
+							"\n---------------------------------------");
+				} while (rs.next());
 			}
+
 			rs.close();
 			pst.close();
 		} catch (SQLException e){
 			e.printStackTrace();
-			System.out.println("Character Not Found ");
 		}
 	}
-
 	public void showCharacterWithRegion() throws SQLException{
 		String sql = "SELECT * FROM character WHERE region_name = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -171,22 +162,25 @@ public class CharacterController {
 			pst.setString(1,regionName);
 			rs = pst.executeQuery();
 
-			while (rs.next()) {
-				System.out.println("---------------------------------------" +
-						"\nId: " + rs.getString("id_character") +
-						"\nCharacterName : " + rs.getString("character_name") +
-						"\nCharacterRarity : " + rs.getString("character_rarity") +
-						"\nCharacterImage : " + rs.getString("character_image") +
-						"\nCharacterDescription : " + rs.getString("character_description") +
-						"\nElementName : " + rs.getString("element_name") +
-						"\nRegionName : " + rs.getString("region_name") +
-						"\nWeaponType : " + rs.getString("weapon_type") +
-						"\n---------------------------------------");
-
+			if (!rs.next()) {
+				System.out.println("Region"+ regionName + "doesn't exist");
+			} else {
+				do {
+					System.out.println("---------------------------------------" +
+							"\nId: " + rs.getString("id_character") +
+							"\nCharacterName : " + rs.getString("character_name") +
+							"\nCharacterRarity : " + rs.getString("character_rarity") +
+							"\nCharacterImage : " + rs.getString("character_image") +
+							"\nCharacterDescription : " + rs.getString("character_description") +
+							"\nElementName : " + rs.getString("element_name") +
+							"\nRegionName : " + rs.getString("region_name") +
+							"\nWeaponType : " + rs.getString("weapon_type") +
+							"\n---------------------------------------");
+				} while (rs.next());
 			}
+
 			}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("Character Not Found ");
 		}
 
 	}
@@ -201,24 +195,25 @@ public class CharacterController {
 			pst.setString(1,elementName);
 			rs = pst.executeQuery();
 
-			while (rs.next()) {
-				System.out.println("---------------------------------------" +
-						"\nId: " + rs.getString("id_character") +
-						"\nCharacterName : " + rs.getString("character_name") +
-						"\nCharacterRarity : " + rs.getString("character_rarity") +
-						"\nCharacterImage : " + rs.getString("character_image") +
-						"\nCharacterDescription : " + rs.getString("character_description") +
-						"\nElementName : " + rs.getString("element_name") +
-						"\nRegionName : " + rs.getString("region_name") +
-						"\nWeaponType : " + rs.getString("weapon_type") +
-						"\n---------------------------------------");
-
+			if (!rs.next()) {
+				System.out.println("The element" + elementName + "doesn't exist");
+			} else {
+				do {
+					System.out.println("---------------------------------------" +
+							"\nId: " + rs.getString("id_character") +
+							"\nCharacterName : " + rs.getString("character_name") +
+							"\nCharacterRarity : " + rs.getString("character_rarity") +
+							"\nCharacterImage : " + rs.getString("character_image") +
+							"\nCharacterDescription : " + rs.getString("character_description") +
+							"\nElementName : " + rs.getString("element_name") +
+							"\nRegionName : " + rs.getString("region_name") +
+							"\nWeaponType : " + rs.getString("weapon_type") +
+							"\n---------------------------------------");
+				} while (rs.next());
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("Character Not Found ");
 		}
-
 	}
 
 	public void showCharacterWithWeaponType() throws SQLException{
@@ -231,18 +226,21 @@ public class CharacterController {
 			pst.setString(1,weaponType);
 			rs = pst.executeQuery();
 
-			while (rs.next()) {
-				System.out.println("---------------------------------------" +
-						"\nId: " + rs.getString("id_character") +
-						"\nCharacterName : " + rs.getString("character_name") +
-						"\nCharacterRarity : " + rs.getString("character_rarity") +
-						"\nCharacterImage : " + rs.getString("character_image") +
-						"\nCharacterDescription : " + rs.getString("character_description") +
-						"\nElementName : " + rs.getString("element_name") +
-						"\nRegionName : " + rs.getString("region_name") +
-						"\nWeaponType : " + rs.getString("weapon_type") +
-						"\n---------------------------------------");
-
+			if (!rs.next()) {
+				System.out.println("The weapon type" + weaponType + "doesn't exist");
+			} else {
+				do {
+					System.out.println("---------------------------------------" +
+							"\nId: " + rs.getString("id_character") +
+							"\nCharacterName : " + rs.getString("character_name") +
+							"\nCharacterRarity : " + rs.getString("character_rarity") +
+							"\nCharacterImage : " + rs.getString("character_image") +
+							"\nCharacterDescription : " + rs.getString("character_description") +
+							"\nElementName : " + rs.getString("element_name") +
+							"\nRegionName : " + rs.getString("region_name") +
+							"\nWeaponType : " + rs.getString("weapon_type") +
+							"\n---------------------------------------");
+				} while (rs.next());
 			}
 		}catch(SQLException e){
 			e.printStackTrace();

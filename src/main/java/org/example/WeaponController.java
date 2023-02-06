@@ -72,7 +72,7 @@ public class WeaponController {
 				String weapon_type = data[4];
 				String baseATK = data[5];
 
-				String sql = "INSERT INTO character(weapon_name,weapon_rarity,weapon_image,weapon_description,weapon_type,base_atk)VALUES(?,?,?,?,?,?)";
+				String sql = "INSERT INTO weapon(weapon_name,weapon_rarity,weapon_image,weapon_description,weapon_type,base_atk)VALUES(?,?,?,?,?,?)";
 				PreparedStatement pst = connection.prepareStatement(sql);
 				pst.setString(1,weapon_name);
 				pst.setString(2,weapon_rarity);
@@ -121,16 +121,20 @@ public class WeaponController {
 			pst.setString(1, weaponName);
 			rs = pst.executeQuery();
 
-			while (rs.next()) {
-				System.out.println("---------------------------------------" +
-						"\nId: " + rs.getString("id_weapon") +
-						"\nWeaponName : " + rs.getString("weapon_name") +
-						"\nWeaponRarity : " + rs.getString("weapon_rarity") +
-						"\nWeaponImage : " + rs.getString("weapon_image") +
-						"\nWeaponDescription : " + rs.getString("weapon_description") +
-						"\nWeaponType : " + rs.getString("weapon_type") +
-						"\nBaseATK : " + rs.getString("base_atk") +
-						"\n---------------------------------------");
+			if(!rs.next()){
+				System.out.println("The weapon " + weaponName + " doesn't exist");
+			}else{
+				do{
+					System.out.println("---------------------------------------" +
+							"\nId: " + rs.getString("id_weapon") +
+							"\nWeaponName : " + rs.getString("weapon_name") +
+							"\nWeaponRarity : " + rs.getString("weapon_rarity") +
+							"\nWeaponImage : " + rs.getString("weapon_image") +
+							"\nWeaponDescription : " + rs.getString("weapon_description") +
+							"\nWeaponType : " + rs.getString("weapon_type") +
+							"\nBaseATK : " + rs.getString("base_atk") +
+							"\n---------------------------------------");
+				}while (rs.next());
 			}
 			rs.close();
 			pst.close();
@@ -147,21 +151,24 @@ public class WeaponController {
 
 		try{
 			System.out.println("Type the type of the weapon : ");
-			String weaponName = sc.nextLine();
-			pst.setString(1, weaponName);
+			String weaponType = sc.nextLine();
+			pst.setString(1, weaponType);
 			rs = pst.executeQuery();
 
-
-			while (rs.next()) {
-				System.out.println("---------------------------------------" +
-						"\nId: " + rs.getString("id_weapon") +
-						"\nWeaponName : " + rs.getString("weapon_name") +
-						"\nWeaponRarity : " + rs.getString("weapon_rarity") +
-						"\nWeaponImage : " + rs.getString("weapon_image") +
-						"\nWeaponDescription : " + rs.getString("weapon_description") +
-						"\nWeaponType : " + rs.getString("weapon_type") +
-						"\nBaseATK : " + rs.getString("base_atk") +
-						"\n---------------------------------------");
+			if(!rs.next()){
+				System.out.println("The weapon type " + weaponType + " doesn't exist");
+			}else{
+				do{
+					System.out.println("---------------------------------------" +
+							"\nId: " + rs.getString("id_weapon") +
+							"\nWeaponName : " + rs.getString("weapon_name") +
+							"\nWeaponRarity : " + rs.getString("weapon_rarity") +
+							"\nWeaponImage : " + rs.getString("weapon_image") +
+							"\nWeaponDescription : " + rs.getString("weapon_description") +
+							"\nWeaponType : " + rs.getString("weapon_type") +
+							"\nBaseATK : " + rs.getString("base_atk") +
+							"\n---------------------------------------");
+				}while (rs.next());
 			}
 			rs.close();
 			pst.close();
@@ -177,7 +184,7 @@ public class WeaponController {
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		try {
-			System.out.println("Type the name of the character you want remove : ");
+			System.out.println("Type the name of the weapon you want remove : ");
 			String weaponName = sc.nextLine();
 			pst.setString(1, weaponName);
 			pst.executeUpdate();

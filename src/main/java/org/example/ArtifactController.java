@@ -22,7 +22,7 @@ public class ArtifactController {
 
     public void addArtifactSet() throws SQLException {
 
-        String sql = "INSERT INTO artifact(set_name,flower_of_life,img_flower_of_life,plume_of_death,img_plume_of_death,sands_of_eon,img_sands_of_eon,goblet_of_eonothem,img_goblet_of_eonothem,circlet_of_logos,img_circlet_of_logos,x2_bonus,x4_bonus) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO artifact(set_name,flower_of_life,img_flower_of_life,plume_of_death,img_plume_of_death,sands_of_eon,img_sands_of_eon,goblet_of_eonothem,img_goblet_of_eonothem,circlet_of_logos,img_circlet_of_logos,x2_bonus,x4_bonus) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement pst = connection.prepareStatement(sql);
         try{
             System.out.println("Type the set_name of the artifact : ");
@@ -101,7 +101,7 @@ public class ArtifactController {
                 String x2_bonus = data[11];
                 String x4_bonus = data[12];
 
-                String sql = "INSERT INTO artifact(set_name,flower_of_life,img_flower_of_life,plume_of_death,img_plume_of_death,sands_of_eon,img_sands_of_eon,goblet_of_eonothem,img_goblet_of_eonothem,circlet_of_logos,img_circlet_of_logos,x2_bonus,x4_bonus) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO artifact(set_name,flower_of_life,img_flower_of_life,plume_of_death,img_plume_of_death,sands_of_eon,img_sands_of_eon,goblet_of_eonothem,img_goblet_of_eonothem,circlet_of_logos,img_circlet_of_logos,x2_bonus,x4_bonus) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = connection.prepareStatement(sql);
                 pst.setString(1,set_name);
                 pst.setString(2,flower_of_life);
@@ -164,23 +164,27 @@ public class ArtifactController {
             pst.setString(1, setName);
             rs = pst.executeQuery();
 
-            while (rs.next()) {
-                System.out.println("---------------------------------------" +
-                        "\nId: " + rs.getString("id_artifactSet") +
-                        "\nSetName : " + rs.getString("set_name") +
-                        "\nFlowerOfLife : " + rs.getString("flower_of_life") +
-                        "\nImgFlowerOfLife : " + rs.getString("img_flower_of_life") +
-                        "\nPlumeOfDeath : " + rs.getString("plume_of_death") +
-                        "\nImgPlumeOfDeath : " + rs.getString("img_plume_of_death") +
-                        "\nSandsOfEon : " + rs.getString("sands_of_eon") +
-                        "\nImgSandsOfEon : " + rs.getString("img_sands_of_eon") +
-                        "\nGobletOfEonothem : " + rs.getString("goblet_of_eonothem") +
-                        "\nImgGobletOfEonothem : " + rs.getString("img_goblet_of_eonothem") +
-                        "\nCircletOfLogos : " + rs.getString("circlet_of_logos") +
-                        "\nImgCircletOfLogos : " + rs.getString("img_circlet_of_logos") +
-                        "\nX2_Bonus : " + rs.getString("x2_bonus") +
-                        "\nX4_Bonus : " + rs.getString("x4_bonus") +
-                        "\n---------------------------------------");
+            if (!rs.next()) {
+                System.out.printf("The Atifact " + setName + "doesn't exist");
+            }else{
+                do{
+                    System.out.println("---------------------------------------" +
+                            "\nId: " + rs.getString("id_artifactSet") +
+                            "\nSetName : " + rs.getString("set_name") +
+                            "\nFlowerOfLife : " + rs.getString("flower_of_life") +
+                            "\nImgFlowerOfLife : " + rs.getString("img_flower_of_life") +
+                            "\nPlumeOfDeath : " + rs.getString("plume_of_death") +
+                            "\nImgPlumeOfDeath : " + rs.getString("img_plume_of_death") +
+                            "\nSandsOfEon : " + rs.getString("sands_of_eon") +
+                            "\nImgSandsOfEon : " + rs.getString("img_sands_of_eon") +
+                            "\nGobletOfEonothem : " + rs.getString("goblet_of_eonothem") +
+                            "\nImgGobletOfEonothem : " + rs.getString("img_goblet_of_eonothem") +
+                            "\nCircletOfLogos : " + rs.getString("circlet_of_logos") +
+                            "\nImgCircletOfLogos : " + rs.getString("img_circlet_of_logos") +
+                            "\nX2_Bonus : " + rs.getString("x2_bonus") +
+                            "\nX4_Bonus : " + rs.getString("x4_bonus") +
+                            "\n---------------------------------------");
+                }while (rs.next());
             }
             rs.close();
             pst.close();
