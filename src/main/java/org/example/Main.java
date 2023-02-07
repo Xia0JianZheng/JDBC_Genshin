@@ -20,31 +20,62 @@ public class Main {
 		ArtifactController artifactController = new ArtifactController(c);
 
 		int option = menu.mainMenu();
-		while (option > 0 && option < 23) {
+
+		while (option != 5) {
 			switch (option) {
-				case 1 -> tablesController.addAllTables();
-				case 2 -> tablesController.removeAllTables();
-				case 3 -> characterController.addCharacter();
-				case 4 -> characterController.addCharacterUsingCSV();
-				case 5 -> characterController.showAllCharacters();
-				case 6 -> characterController.showSpecificCharacter();
-				case 7 -> characterController.showCharacterWithRegion();
-				case 8 -> characterController.showCharacterWithElement();
-				case 9 -> characterController.showCharacterWithWeaponType();
-				case 10 -> characterController.removeOneCharacter();
-				case 11 -> weaponController.addWeapon();
-				case 12 -> weaponController.addWeaponUsingCSV();
-				case 13 -> weaponController.showAllWeapons();
-				case 14 -> weaponController.showSpecificWeapon();
-				case 15 -> weaponController.showWeaponWithType();
-				case 16 -> weaponController.removeOneWeapon();
-				case 17 -> artifactController.addArtifactSet();
-				case 18 -> artifactController.addArtifactSetUsingCSV();
-				case 19 -> artifactController.showAllArtifacts();
-				case 20 -> artifactController.showSpecificArtifact();
-				case 21 -> artifactController.removeOneArtifactSet();
-				case 22 -> {
-					return;
+				case 1 -> {
+					int tableOption = menu.tableMenu();
+					while (tableOption != 3){
+						switch (tableOption){
+							case 1 -> tablesController.addAllTables();
+							case 2 -> tablesController.removeAllTables();
+						}
+						tableOption = menu.tableMenu();
+					}
+				}
+				case 2 -> {
+					int characterOption = menu.characterMenu();
+					while (characterOption != 9){
+						switch (characterOption){
+							case 1 -> characterController.addCharacter();
+							case 2 -> characterController.addCharacterUsingCSV();
+							case 3 -> characterController.showAllCharacters();
+							case 4 -> characterController.showSpecificCharacter();
+							case 5 -> characterController.showCharacterWithRegion();
+							case 6 -> characterController.showCharacterWithElement();
+							case 7 -> characterController.showCharacterWithWeaponType();
+							case 8 -> characterController.removeOneCharacter();
+							default -> System.out.println("option not found, try again");
+						}
+						characterOption = menu.characterMenu();
+					}
+				}
+				case 3 -> {
+					int weaponOption = menu.weaponMenu();
+					while (weaponOption != 7){
+						switch (weaponOption){
+							case 1 -> weaponController.addWeapon();
+							case 2 -> weaponController.addWeaponUsingCSV();
+							case 3 -> weaponController.showAllWeapons();
+							case 4 -> weaponController.showSpecificWeapon();
+							case 5 -> weaponController.showWeaponWithType();
+							case 6 -> weaponController.removeOneWeapon();
+						}
+						weaponOption = menu.weaponMenu();
+					}
+				}
+				case 4 -> {
+					int artifactOption = menu.artifactMenu();
+					while (artifactOption != 6){
+						switch (artifactOption){
+							case 1 -> artifactController.addArtifactSet();
+							case 2 -> artifactController.addArtifactSetUsingCSV();
+							case 3 -> artifactController.showAllArtifacts();
+							case 4 -> artifactController.showSpecificArtifact();
+							case 5 -> artifactController.removeOneArtifactSet();
+						}
+						artifactOption = menu.artifactMenu();
+					}
 				}
 				default -> System.out.println("option not found, try again");
 			}

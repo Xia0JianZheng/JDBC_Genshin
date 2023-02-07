@@ -66,7 +66,7 @@ public class TablesController {
             st.executeUpdate("DROP TABLE weapon");
             st.executeUpdate("DROP TABLE artifact");
         }catch (SQLException e){
-            System.out.println("No hay tablas que borrar");
+            System.out.println("No hay tablas para borrar");
         }
 
     }
