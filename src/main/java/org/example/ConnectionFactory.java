@@ -7,6 +7,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Clase donde contiene los metodos para crea coneccion con la base de datos
+ */
 public class ConnectionFactory {
 	// init database constants
 	private static final String DATABASE_DRIVER = "org.postgresql.Driver";
@@ -25,11 +28,18 @@ public class ConnectionFactory {
 	// init properties object
 	private Properties properties;
 
+	/**
+	 * Constructor de la classe ConnectionFactory
+	 */
 	private ConnectionFactory() {
 		super();
 		init();
 	}
 
+	/**
+	 * Metodo que coge la instancia y si no existe lo crea
+	 * @return retorna una instancia
+	 */
 	public static ConnectionFactory getInstance() {
 		if (instance == null) {
 			instance = new ConnectionFactory();
@@ -61,7 +71,11 @@ public class ConnectionFactory {
 			throw new RuntimeException(message, e);
 		}
 	}
-//	// create properties
+
+	/**
+	 * Aqui crea las propiedades de nombre de usuario, el password para la conneccion.
+	 * @return los valores de propiedad
+	 */
 	private Properties getProperties() {
 		if (properties == null) {
 			properties = new Properties();
@@ -72,7 +86,10 @@ public class ConnectionFactory {
 		return properties;
 	}
 
-	// connect database
+	/**
+	 * Metodo que coge las propiedades y conecta al base de datos
+	 * @return retorna el conneccion
+	 */
 	public Connection connect() {
 		if (connection == null) {
 			try {
@@ -103,7 +120,9 @@ public class ConnectionFactory {
 		return connection;
 	}
 
-	// disconnect database
+	/**
+	 * metodo que desconecta del base de datos
+	 */
 	public void disconnect() {
 		if (connection != null) {
 			try {

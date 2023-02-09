@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase donde tiene metodos para controla la tabla de weapons
+ */
 public class WeaponController {
 
 	private Connection connection;
@@ -16,10 +19,18 @@ public class WeaponController {
 
 	ResultSet rs;
 
+	/**
+	 * Constructor de la clase weaponController
+	 * @param connection coge la conneccion de la base de datos
+	 */
 	public WeaponController(Connection connection) {
 		this.connection = connection;
 	}
 
+	/**
+	 * metodo que añade una arma con los infos del usuario
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void addWeapon() throws SQLException {
 
 		String sql = "INSERT INTO weapon(weapon_name,weapon_rarity,weapon_image,weapon_description,weapon_type,base_atk) VALUES(?,?,?,?,?,?)";
@@ -52,6 +63,9 @@ public class WeaponController {
 		}
 	}
 
+	/**
+	 * Metodo que añade las armas pasando un ficharo csv
+	 */
 	public void addWeaponUsingCSV(){
 		List<String[]> weaponDatas = new ArrayList<>();
 
@@ -89,6 +103,10 @@ public class WeaponController {
 		}
 	}
 
+	/**
+	 * Metodo que muestra toda las armas de la tabla
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void showAllWeapons() throws SQLException{
 
 		Statement st = connection.createStatement();
@@ -104,6 +122,10 @@ public class WeaponController {
 		st.close();
 	}
 
+	/**
+	 * Metodo que muestra los infos de la arma con el nombre que le has pasado
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void showSpecificWeapon() throws SQLException {
 
 		String sql = "SELECT * FROM weapon WHERE weapon_name = ?";
@@ -132,6 +154,10 @@ public class WeaponController {
 		}
 	}
 
+	/**
+	 * Metodo que muestra las armas psasando el tipo de arma
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void showWeaponWithType() throws SQLException {
 
 		String sql = "SELECT * FROM weapon WHERE weapon_type = ?";
@@ -160,6 +186,10 @@ public class WeaponController {
 		}
 	}
 
+	/**
+	 * Metodo que quita una arma de la tabla pasando el nombre
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void removeOneWeapon() throws SQLException {
 
 		String sql = "DELETE FROM weapon WHERE weapon_name = ?";

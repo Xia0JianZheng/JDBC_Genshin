@@ -1,12 +1,20 @@
+CREATE TABLE region(
+region_name text PRIMARY KEY
+);
+
+CREATE TABLE element(
+element_name text PRIMARY KEY
+);
+
 CREATE TABLE character(
 id_character serial PRIMARY KEY,
 character_name text,
 character_rarity text,
 character_image text,
 character_description text,
-element_name text,
-region_name text,
-weapon_type text,
+element_name text REFERENCES element (element_name),
+region_name text REFERENCES region (region_name),
+weapon_type text
 );
 
 CREATE TABLE weapon(
@@ -35,3 +43,4 @@ img_circlet_of_logos text,
 x2_bonus text,
 x4_bonus text
 );
+

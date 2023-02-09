@@ -5,14 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+/**
+ * clase donde contiene los metodos para controlar los menus
+ */
 public class Menu {
 	private int option;
 	Scanner sc = new Scanner(System.in);
 
+	/**
+	 * Constructor de la clase Menu
+	 */
 	public Menu() {
 		super();
 	}
 
+	/**
+	 * Menu que contiene los opciones que controla los submenus
+	 * @return retorna las opciones
+	 */
 	public int mainMenu() {
 
 		System.out.println("-----------------------------------");
@@ -34,6 +44,10 @@ public class Menu {
 	return option;
 	}
 
+	/**
+	 * Menu que contiene los opciones que controla las tablas
+	 * @return retorna las opciones
+	 */
 	public int tableMenu(){
 		System.out.println("-----------------------------------");
 		System.out.println("-	      	Table Menu   	      -");
@@ -51,6 +65,11 @@ public class Menu {
 		}
 		return option;
 	}
+
+	/**
+	 * Menu que contiene los opciones que controla la tabla de character
+	 * @return retorna las opciones
+	 */
 
 	public int characterMenu(){
 		System.out.println("---------------------------------------------");
@@ -76,6 +95,10 @@ public class Menu {
 	return option;
 	}
 
+	/**
+	 * Menu que contiene los opciones que controla la tabla de armas
+	 * @return retorna las opciones
+	 */
 	public int weaponMenu(){
 		System.out.println("-------------------------------------------");
 		System.out.println("-	      		Weapon Menu       	  	  -");
@@ -97,6 +120,11 @@ public class Menu {
 		}
 	return option;
 	}
+
+	/**
+	 * Menu que contiene los opciones que controla la tabla de artifact
+	 * @return retorna las opciones
+	 */
 
 	public int artifactMenu(){
 		System.out.println("-----------------------------------------");

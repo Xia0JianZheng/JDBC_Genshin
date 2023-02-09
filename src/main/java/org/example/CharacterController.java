@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase donde tiene metodos para controla la tabla de characters
+ */
 public class CharacterController {
 
 	private final Connection connection;
@@ -16,12 +19,19 @@ public class CharacterController {
 	Scanner sc = new Scanner(System.in);
 
 	ResultSet rs;
-	
+
+	/**
+	 * Constructor de la clase
+	 * @param connection coge la conneccion a la base de datos
+	 */
 	public CharacterController(Connection connection) {
 		this.connection = connection;
 	}
 
-
+	/**
+	 * Metodo que Inserta un character a la tabla con los infos que pasa el usuario
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void addCharacter() throws SQLException {
 
 		String sql = "INSERT INTO character(character_name,character_rarity,character_image,character_description,element_name,region_name,weapon_type) VALUES(?,?,?,?,?,?,?)";
@@ -57,6 +67,9 @@ public class CharacterController {
 		}
 	}
 
+	/**
+	 * Metodo que Inserta los characters a la tabla pasandole un fichero csv
+	 */
 	public void addCharacterUsingCSV(){
 		List<String[]> characterDatas = new ArrayList<>();
 
@@ -96,6 +109,11 @@ public class CharacterController {
 		}
 	}
 
+	/**
+	 * metodo que muestra los characters de la tabla character
+	 * @throws SQLException throws SQLException Exception
+	 * @throws IOException throws IOEcxeption Exception
+	 */
 	public void showAllCharacters() throws SQLException, IOException {
 
 		Statement st = connection.createStatement();
@@ -110,6 +128,10 @@ public class CharacterController {
 		st.close();
 	}
 
+	/**
+	 * metodo que muestra los characters de la tabla character pasando el nombre del character
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void showSpecificCharacter() throws SQLException {
 
 		String sql = "SELECT * FROM character WHERE character_name = ?";
@@ -137,12 +159,17 @@ public class CharacterController {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Metodo que muestra los characters que pertenece en el ciutat que usuario ha puesto
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void showCharacterWithRegion() throws SQLException{
 		String sql = "SELECT * FROM character WHERE region_name = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
 
 		try{
-			System.out.println("Type the region name : [-][ ][ ][ ][ ][ ][ ]");
+			System.out.println("Type the region name : [Mondstadt][Liyue][Inazuma][Sumeru][Fontaine][Natlan][Snezhnaya][Khaenri'ah][None]");
 			String regionName = sc.nextLine();
 			pst.setString(1,regionName);
 			rs = pst.executeQuery();
@@ -161,6 +188,11 @@ public class CharacterController {
 		}
 
 	}
+
+	/**
+	 * Metodo que muestra los characters que usa el elemento que usuario ha puesto
+	 * @throws SQLException throws SQLException Exception
+	 */
 
 	public void showCharacterWithElement() throws SQLException{
 		String sql = "SELECT * FROM character WHERE element_name = ?";
@@ -185,6 +217,10 @@ public class CharacterController {
 		}
 	}
 
+	/**
+	 * Metodo que muestra los characters que utiliza el tipo de arma que puso el usuario
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void showCharacterWithWeaponType() throws SQLException{
 		String sql = "SELECT * FROM character WHERE weapon_type = ?";
 		PreparedStatement pst = connection.prepareStatement(sql);
@@ -211,6 +247,10 @@ public class CharacterController {
 
 	}
 
+	/**
+	 * Metodo que el usuario le pasa un nombre de character y lo borra de la tabla
+	 * @throws SQLException throws SQLException Exception
+	 */
 	public void removeOneCharacter() throws SQLException {
 
 		String sql = "DELETE FROM character WHERE character_name = ?";

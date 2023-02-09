@@ -6,8 +6,23 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 
+/**
+ * clase Main donde se ejecuta todo los metodos
+ */
 public class Main {
+	/**
+	 * Constructor vacio de la clase Main
+	 */
+	public Main(){
 
+	}
+	/**
+	 * metodo main donde ejecuta los metodos
+	 * @param args los argumentos
+	 * @throws IOException throws IOException exception
+	 * @throws SQLException throws IOException exception
+	 * @throws ParseException throws IOException exception
+	 */
 	public static void main(String[] args) throws IOException, SQLException, ParseException {
 		Menu menu = new Menu();
 		
@@ -29,6 +44,7 @@ public class Main {
 						switch (tableOption){
 							case 1 -> tablesController.addAllTables();
 							case 2 -> tablesController.removeAllTables();
+							default -> System.out.println("option not found, try again");
 						}
 						tableOption = menu.tableMenu();
 					}
@@ -60,6 +76,7 @@ public class Main {
 							case 4 -> weaponController.showSpecificWeapon();
 							case 5 -> weaponController.showWeaponWithType();
 							case 6 -> weaponController.removeOneWeapon();
+							default -> System.out.println("option not found, try again");
 						}
 						weaponOption = menu.weaponMenu();
 					}
@@ -73,6 +90,7 @@ public class Main {
 							case 3 -> artifactController.showAllArtifacts();
 							case 4 -> artifactController.showSpecificArtifact();
 							case 5 -> artifactController.removeOneArtifactSet();
+							default -> System.out.println("option not found, try again");
 						}
 						artifactOption = menu.artifactMenu();
 					}
